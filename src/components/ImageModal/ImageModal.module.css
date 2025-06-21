@@ -1,0 +1,60 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  max-width: 600px;
+  width: 90%;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.miniContainer {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.5;
+}
+
+.likes {
+  font-size: 14px;
+  color: #e63946;
+  align-self: flex-end;
+}
+
+.modal button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.modal button:hover {
+  color: #000;
+}
