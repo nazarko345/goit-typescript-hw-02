@@ -4,18 +4,38 @@ import { BsXLg } from "react-icons/bs";
 
 Modal.setAppElement("#root");
 
-export default function ImageModal({ isOpen, isClosed, selectedArticle }) {
+interface ImageUser {
+  name: string;
+}
+
+interface SelectedImage {
+  urls: {
+    regular: string;
+  };
+  description?: string;
+  alt_description: string | null;
+  user: ImageUser;
+  likes: number;
+}
+
+interface ImageModalProps {
+  isOpen: boolean;
+  isClosed: () => void;
+  selectedArticle: SelectedImage | null;
+}
+
+export default function ImageModal({ isOpen, isClosed, selectedArticle }: ImageModalProps) {
   return (
     <Modal className={css.modal} isOpen={isOpen} onRequestClose={isClosed}>
       {selectedArticle && (
         <>
-          <button onClick={isClosed}>
+          <button type="button" onClick={isClosed}>
             <BsXLg />
           </button>
           <img
             className={css.img}
             src={selectedArticle.urls.regular}
-            alt={selectedArticle.alt_description}
+            alt={selectedArticle.alt_description || "Image"}
           />
           <div className={css.miniContainer}>
             <h4 className={css.description}>

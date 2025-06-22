@@ -1,26 +1,27 @@
 import css from "./App.module.css";
 
-import SearchBar from "../SearchBar/SearchBar.jsx";
-import ImageGallery from "../ImageGallery/ImageGallery.jsx";
-import ImageModal from "../ImageModal/ImageModal.jsx";
-import Loader from "../Loader/Loader.jsx";
-import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
-import { fetchArticles } from "../../articles-api.js";
+import SearchBar from "../SearchBar/SearchBar.tsx";
+import ImageGallery from "../ImageGallery/ImageGallery.tsx";
+import ImageModal from "../ImageModal/ImageModal.tsx";
+import Loader from "../Loader/Loader.tsx";
+import ErrorMessage from "../ErrorMessage/ErrorMessage.tsx";
+import { fetchArticles } from "../../articles-api.ts";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent} from "react";
 import toast, { Toaster } from "react-hot-toast";
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn.js';
+import type { Image } from "../../types.js";
 
 export default function App() {
-  const [query, setQuery] = useState("");
-  const [articles, setArticles] = useState([]);
-  const [isError, setIsError] = useState(false);
+  const [query, setQuery] = useState<string>("");
+  const [articles, setArticles] = useState<Image[]>([]);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const [loader, setLoader] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalArticles, setTotalArticles] = useState(0);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedArticle, setSelectedAtrticle] = useState(null);
+  const [loader, setLoader] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [totalArticles, setTotalArticles] = useState<number>(0);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [selectedArticle, setSelectedArticle] = useState<Image | null>(null);
 
 
   useEffect(() => {
@@ -48,10 +49,13 @@ export default function App() {
     loadArticles();
   }, [query, page]);
 
-  function handleSubmit(event) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const topic = event.target.elements[0].value.trim();
+    const form = event.currentTarget;
+    const input = form.elements.namedItem("search") as HTMLInputElement;
+
+    const topic = input?.value.trim();
     if (topic === "") {
       toast.error("Please enter a search term!");
       return;
@@ -62,21 +66,21 @@ export default function App() {
     setPage(1);
     setArticles([]);
 
-    event.target.reset();
+    form.reset();
   }
 
   function moreArticlesRender() {
     setPage(page + 1);
   }
 
-  function OpenModal(article) {
+  function OpenModal(article: Image) {
     setModalIsOpen(true);
-    setSelectedAtrticle(article);
+    setSelectedArticle(article);
   }
 
   function CleseModal() {
     setModalIsOpen(false);
-    setSelectedAtrticle(null);
+    setSelectedArticle(null);
   }
 
   return (

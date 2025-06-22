@@ -1,6 +1,11 @@
 import css from "./SearchBar.module.css";
+import React from "react";
 
-export default function SearchBar({ onSubmit }) {
+interface SearchBarProps {
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export default function SearchBar({ onSubmit }: SearchBarProps) {
   return (
     <header className={css.header}>
       <form className={css.form} onSubmit={onSubmit}>

@@ -1,7 +1,16 @@
 import css from "./ImageGallery.module.css";
-import ImageCard from "../ImageCard/ImageCard.jsx";
+import ImageCard from "../ImageCard/ImageCard.js";
+import type { Image } from "../../types.js";
 
-export default function ImageGallery({ articles, modalOpening }) {
+interface ImageGalleryProps {
+  articles: Image[];
+  modalOpening: (image: Image) => void;
+}
+
+export default function ImageGallery({
+  articles,
+  modalOpening,
+}: ImageGalleryProps) {
   return (
     <ul className={css.list}>
       {articles.map((article) => (
